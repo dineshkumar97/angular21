@@ -98,3 +98,15 @@ export class Login implements OnInit {
   }
 
 }
+
+
+
+// npm install @emnapi/core@1.11.3 @emnapi/runtime@1.11.3 @emnapi/wasi-threads@1.2.3
+
+
+// npm run build
+
+
+// git add package.json package-lock.json
+// git commit -m "Fix npm dependencies"
+// git push
