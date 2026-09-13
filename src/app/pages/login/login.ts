@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from './login-service';
+import { ToastService } from '../../toast/toast-service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class Login implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +39,13 @@ export class Login implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(6),
+          Validators.minLength(5),
           // Validators.maxLength(20),
           // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/)
         ]
       ],
 
-      rememberMe: [false]
+      // rememberMe: [false]
     });
 
   }
@@ -74,7 +76,7 @@ export class Login implements OnInit {
     return /[@$!%*?&]/.test(password);
   }
 
-public  loginDetails(): void {
+  public loginDetails(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -82,18 +84,17 @@ public  loginDetails(): void {
 
     this.loginService.login(this.loginForm.value).subscribe(
       (response) => {
+        this.toastService.success('Login successful');
         console.log('Login successful:', response);
-        // Handle successful login, e.g., navigate to dashboard
+        this.router.navigate(['/dashboard']);
       },
       (error) => {
+        this.toastService.error(error.error.message || 'Login failed');
         console.error('Login failed:', error);
         // Handle login error, e.g., show error message
       }
     );
     console.log('Login successful');
-
-    // Navigate to Dashboard
-    // this.router.navigate(['/dashboard']);
   }
 
 }

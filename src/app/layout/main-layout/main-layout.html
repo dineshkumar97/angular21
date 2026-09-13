@@ -2,28 +2,20 @@
 
   <aside class="sidebar">
 
-    <div class="logo">
-      My Application
-    </div>
-
     <nav>
-      <a routerLink="/dashboard"
-         routerLinkActive="active">
+      <a routerLink="/dashboard" routerLinkActive="active">
         Dashboard
       </a>
 
-      <a routerLink="/users"
-         routerLinkActive="active">
+      <a routerLink="/users" routerLinkActive="active">
         Users
       </a>
 
-      <a routerLink="/reports"
-         routerLinkActive="active">
+      <a routerLink="/reports" routerLinkActive="active">
         Reports
       </a>
 
-      <a routerLink="/settings"
-         routerLinkActive="active">
+      <a routerLink="/settings" routerLinkActive="active">
         Settings
       </a>
     </nav>
@@ -33,15 +25,48 @@
   <main class="main-content">
 
     <header class="header">
+
       <h3>My Application</h3>
 
-      <!-- <button (click)="logout()">
-        Logout
-      </button> -->
+      <!-- Right side -->
+      <div class="header-right">
+
+        <button class="profile-button" (click)="toggleDropdown()">
+          <div class="profile-icon">
+            {{ userName.charAt(0).toUpperCase() }}
+          </div>
+
+          <span>{{ userName }}</span>
+
+          <span>▼</span>
+        </button>
+
+        @if (isDropdownOpen) {
+        <div class="dropdown-menu">
+
+          <button (click)="profile()">
+            Profile
+          </button>
+
+          <button (click)="settings()">
+            Settings
+          </button>
+
+          <hr>
+
+          <button class="logout" (click)="logout()">
+            Logout
+          </button>
+
+        </div>
+        }
+
+      </div>
+
     </header>
 
     <section class="content">
-     <!-- <router-outlet /> -->
+      <!-- <router-outlet></router-outlet> -->
     </section>
 
   </main>

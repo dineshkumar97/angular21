@@ -52,3 +52,89 @@ nav a.active {
 .content {
   padding: 25px;
 }
+.header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 180px;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 12px 15px;
+
+  border: none;
+  background: white;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #f3f4f6;
+}
+
+.dropdown-menu .logout {
+  color: red;
+}
+
+.dropdown-menu hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 0;
+}
+
