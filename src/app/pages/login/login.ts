@@ -1,0 +1,99 @@
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from './login-service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.html',
+  styleUrl: './login.scss'
+})
+export class Login implements OnInit {
+
+  loginForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private loginService: LoginService
+  ) { }
+
+  ngOnInit(): void {
+
+    this.loginForm = this.fb.group({
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          // Validators.maxLength(20),
+          // Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/)
+        ]
+      ],
+
+      rememberMe: [false]
+    });
+
+  }
+
+
+  hasMinLength(): boolean {
+    const password = this.loginForm.get('password')?.value || '';
+    return password.length >= 8;
+  }
+
+  hasUppercase(): boolean {
+    const password = this.loginForm.get('password')?.value || '';
+    return /[A-Z]/.test(password);
+  }
+
+  hasLowercase(): boolean {
+    const password = this.loginForm.get('password')?.value || '';
+    return /[a-z]/.test(password);
+  }
+
+  hasNumber(): boolean {
+    const password = this.loginForm.get('password')?.value || '';
+    return /\d/.test(password);
+  }
+
+  hasSpecialChar(): boolean {
+    const password = this.loginForm.get('password')?.value || '';
+    return /[@$!%*?&]/.test(password);
+  }
+
+public  loginDetails(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    this.loginService.login(this.loginForm.value).subscribe(
+      (response) => {
+        console.log('Login successful:', response);
+        // Handle successful login, e.g., navigate to dashboard
+      },
+      (error) => {
+        console.error('Login failed:', error);
+        // Handle login error, e.g., show error message
+      }
+    );
+    console.log('Login successful');
+
+    // Navigate to Dashboard
+    // this.router.navigate(['/dashboard']);
+  }
+
+}
