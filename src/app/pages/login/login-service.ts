@@ -17,7 +17,7 @@ export interface LoginResponse {
 })
 export class LoginService {
 
-   private apiUrl = 'http://localhost:3000/api-learn/user';
+   private apiUrl = 'https://1gipascky0.execute-api.ap-south-1.amazonaws.com/api-learn/user';
 
   constructor(private http: HttpClient) {}
 
