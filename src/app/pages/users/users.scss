@@ -1,47 +1,7 @@
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  margin-top: 20px;
+.table-hover:hover {
+  background-color: #fffaf7 !important;
 }
 
-.user-table {
-  width: 100%;
-  min-width: 700px;
-  border-collapse: collapse;
-  background: #fff;
-}
-
-.user-table th,
-.user-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.user-table th {
-  background: #f5f5f5;
-  font-weight: 600;
-}
-
-.user-table tbody tr:hover {
-  background: #f9f9f9;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-
-  .table-container {
-    overflow-x: auto;
-  }
-
-  .user-table {
-    min-width: 650px;
-  }
-
-  .user-table th,
-  .user-table td {
-    padding: 10px;
-    font-size: 13px;
-  }
+.table-hover:hover td {
+  background-color: #fffaf7 !important;
 }

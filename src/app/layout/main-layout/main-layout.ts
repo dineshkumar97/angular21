@@ -74,41 +74,15 @@ export class MainLayout implements OnInit {
   // ============================
 
   menuItems = signal<MenuItem[]>([
-    {
-      label: 'Dashboard',
-      icon: '▦',
-      route: '/dashboard'
-    },
-    {
-      label: 'Products',
-      icon: '◇',
-      route: '/products'
-    },
-    {
-      label: 'Inventory',
-      icon: '▤',
-      route: '/inventory'
-    },
-    {
-      label: 'Orders',
-      icon: '▢',
-      route: '/orders'
-    },
-    {
-      label: 'Suppliers',
-      icon: '♧',
-      route: '/suppliers'
-    },
-    {
-      label: 'Reports',
-      icon: '▤',
-      route: '/reports'
-    },
-    {
-      label: 'Settings',
-      icon: '⚙',
-      route: '/settings'
-    }
+    { label: 'Dashboard', icon: '📊', route: '/dashboard' },
+    { label: 'Employees', icon: '👥', route: '/users' },
+    { label: 'Departments', icon: '🏢', route: '/departments' },
+    { label: 'Projects', icon: '📋', route: '/projects' },
+    { label: 'Inventory', icon: '📋', route: '/inventory' },
+    { label: 'Orders', icon: '🛒', route: '/orders' },
+    { label: 'Suppliers', icon: '🚚', route: '/suppliers' },
+    { label: 'Reports', icon: '📈', route: '/reports' },
+    { label: 'Settings', icon: '⚙️', route: '/settings' }
   ]);
 
   activeMenu = signal('Dashboard');

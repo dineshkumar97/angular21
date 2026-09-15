@@ -18,11 +18,9 @@ export class Users implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-
     if (isPlatformBrowser(this.platformId)) {
       this.getUsers();
     }
-
   }
 
   getUsers(): void {
