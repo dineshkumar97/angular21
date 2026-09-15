@@ -1,46 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet
+} from '@angular/router';
 @Component({
   selector: 'app-main-layout',
-  imports: [],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
 export class MainLayout implements OnInit {
 
-    constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
-  
-userName = 'Dinesh';
-isDropdownOpen = false;
 
-toggleDropdown(): void {
-  this.isDropdownOpen = !this.isDropdownOpen;
-}
+  userName = 'Dinesh';
+  isDropdownOpen = false;
 
-profile(): void {
-  this.isDropdownOpen = false;
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
-  // Navigate to profile
-  // this.router.navigate(['/profile']);
-}
+  profile(): void {
+    this.isDropdownOpen = false;
 
-settings(): void {
-  this.isDropdownOpen = false;
+    // Navigate to profile
+    // this.router.navigate(['/profile']);
+  }
 
-  // Navigate to settings
-  // this.router.navigate(['/settings']);
-}
+  settings(): void {
+    this.isDropdownOpen = false;
+
+    // Navigate to settings
+    // this.router.navigate(['/settings']);
+  }
 
 
   logout(): void {
-  this.isDropdownOpen = false;
+    this.isDropdownOpen = false;
 
     // Clear local storage
-    localStorage.clear();
+    sessionStorage.clear();
     // Redirect to login page
     this.router.navigate(['/login']);
 
