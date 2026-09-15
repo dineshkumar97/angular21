@@ -1,12 +1,13 @@
 import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
-// import { DatePipe } from '@angular/common';
+
 import { UserService, User } from './user-service';
 import { isPlatformBrowser } from '@angular/common';
+import { CommonDatePipe } from '../../common/common-date.pipe';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [],
+  imports: [CommonDatePipe],
   templateUrl: './users.html',
   styleUrl: './users.scss'
 })

@@ -2,7 +2,7 @@
     <table class="user-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>S.no</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Created At</th>
@@ -11,13 +11,14 @@
         </thead>
 
         <tbody>
-           @for (user of users(); track user._id) {
+
+           @for (user of users(); track user._id; let i= $index) {
             <tr>
-                <td>{{ user?._id }}</td>
+                <td>{{ i + 1 }}</td>
                 <td>{{ user?.name }}</td>
                 <td>{{ user?.email }}</td>
-                <!-- <td>{{ user.createdAt | date:'dd-MM-yyyy HH:mm' }}</td>
-                <td>{{ user.updatedAt | date:'dd-MM-yyyy HH:mm' }}</td> -->
+                <td>{{ user.createdAt | commonDate }}</td>
+                <td>{{ user.updatedAt | commonDate }}</td>
             </tr>
             }
         </tbody>
