@@ -1,10 +1,6 @@
 import { Component, computed, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet
-} from '@angular/router';
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 interface MenuItem {
   label: string;
@@ -22,7 +18,7 @@ interface Product {
 }
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
@@ -30,40 +26,38 @@ export class MainLayout implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.router.url === '/employee') {
+      this.activeMenu.set('Employees');
+    } else if (this.router.url === '/departments') {
+      this.activeMenu.set('Departments');
+    } else if (this.router.url === '/dashboard') {
+      this.activeMenu.set('Dashboard');
+    }
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe(() => {
+        this.updateActiveMenu();
+      });
+  }
+
+  private updateActiveMenu(): void {
+    const menuMap: Record<string, string> = {
+      '/dashboard': 'Dashboard',
+      '/employee': 'Employees',
+      '/departments': 'Departments'
+    };
+
+    this.activeMenu.set(menuMap[this.router.url] ?? 'Dashboard');
+  }
 
 
   // userName = 'Dinesh';
   isDropdownOpen = signal(false);
 
-  // toggleDropdown(): void {
-  //   this.isDropdownOpen = !this.isDropdownOpen;
-  // }
-
-  // profile(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Navigate to profile
-  //   // this.router.navigate(['/profile']);
-  // }
-
-  // settings(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Navigate to settings
-  //   // this.router.navigate(['/settings']);
-  // }
-
-
-  // logout(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Clear local storage
-  //   sessionStorage.clear();
-  //   // Redirect to login page
-  //   this.router.navigate(['/login']);
-
-  // }
+  activeMenu = signal('Dashboard');
 
   userName = signal('Dinesh');
 
@@ -85,8 +79,9 @@ export class MainLayout implements OnInit {
     { label: 'Settings', icon: '⚙️', route: '/settings' }
   ]);
 
-  activeMenu = signal('Dashboard');
-
+  selectMenu(menu: any) {
+    this.activeMenu.set(menu.label);
+  }
   // ============================
   // DASHBOARD STATISTICS
   // ============================
@@ -118,22 +113,6 @@ export class MainLayout implements OnInit {
     );
   });
 
-  // ============================
-  // INVENTORY DATA
-  // ============================
-
-
-  // ============================
-  // MENU
-  // ============================
-
-  selectMenu(menu: MenuItem) {
-    this.activeMenu.set(menu.label);
-  }
-
-  // ============================
-  // PROFILE
-  // ============================
 
   toggleDropdown() {
     this.isDropdownOpen.update(value => !value);
@@ -153,15 +132,8 @@ export class MainLayout implements OnInit {
     console.log('Logout clicked');
     this.isDropdownOpen.set(false);
     sessionStorage.clear();
-    // Redirect to login page
     this.router.navigate(['/login']);
   }
 
-  // ============================
-  // REORDER
-  // ============================
-
-  reorder(product: Product) {
-    console.log('Reorder:', product);
-  }
+ 
 }

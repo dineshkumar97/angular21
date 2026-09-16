@@ -1,4 +1,17 @@
+<div class="page-header">
+    <h1>Employee</h1>
 
+    <div class="header-actions">
+        <button class="reorder-button" type="button" (click)="addEmployee()">
+            Add Employee
+        </button>
+    </div>
+</div>
+@if (showEmployeeForm) {
+<app-employee-create-update [isEditMode]="isEditMode" (employeeTable)="employeeSaved()" [employee]="selectedEmployee"
+    (close)="closeEmployeeForm()">
+</app-employee-create-update>
+}
 <div class="attention-card">
     <div class="table-wrapper">
         <table>
@@ -9,8 +22,10 @@
                     <th>Email</th>
                     <th>DOB</th>
                     <th>Department</th>
+                    <th>Phone</th>
                     <th>Created At</th>
                     <th>Updated At</th>
+                    <th>Actions</th>
                 </tr>
 
             </thead>
@@ -18,17 +33,110 @@
             @for (employee of employees(); track employee._id; let i= $index) {
             <tr class="table-hover">
                 <td>{{ i + 1 }}</td>
-                <td>{{ employee?.name }}</td>
+               <td
+  [class.active-name]="employee?.isActive === true"
+  [class.inactive-name]="employee?.isActive === false">
+
+  {{ employee?.name }}
+
+</td>
                 <td>{{ employee?.email }}</td>
                 <td>{{ employee?.dob | commonDate }}</td>
                 <td>{{ employee?.department }}</td>
+                <td>{{ employee?.phone }}</td>
                 <td>{{ employee.createdAt | commonDate }}</td>
                 <td>{{ employee.updatedAt | commonDate }}</td>
+                <td class="action-buttons">
+                    <button class="edit-button tooltip" (click)="editEmployee(employee)">
+                        ✏️
+                    </button>
+                    <button type="button" class="status-button" (click)="openStatusConfirmation(employee)"
+                        [title]="employee.isActive ? 'Deactivate Employee' : 'Activate Employee'">
+
+                        <span class="status-icon" [class.active]="employee.isActive"
+                            [class.inactive]="!employee.isActive">
+                        </span>
+                        <!-- <span [class.active-icon]="employee.isActive"
+        [class.inactive-icon]="!employee.isActive">
+    {{ employee.isActive ? '✓' : '×' }}
+  </span> -->
+
+                    </button>
+                    <!-- <button class="delete-button tooltip" (click)="deleteEmployee(employee._id)">
+                        🗑️
+                    </button> -->
+                </td>
             </tr>
             }
 
         </table>
+    </div>
+</div>
+
+
+@if (showStatusPopup) {
+
+<div class="modal-overlay" (click)="closeStatusPopup()">
+
+    <div class="modal-container status-modal" (click)="$event.stopPropagation()">
+
+        <!-- Header -->
+        <div class="modal-header">
+
+            <h2>
+                {{ selectedEmployee?.isActive
+                ? 'Deactivate Employee'
+                : 'Activate Employee' }}
+            </h2>
+
+            <button type="button" class="close-button" (click)="closeStatusPopup()">
+                ×
+            </button>
+
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body confirmation-body">
+
+            <div class="confirmation-icon">
+                {{ selectedEmployee?.isActive ? '⚠️' : '✓' }}
+            </div>
+
+            <p>
+                Are you sure you want to
+                <strong>
+                    {{ selectedEmployee?.isActive
+                    ? 'deactivate'
+                    : 'activate' }}
+                </strong>
+                this employee?
+            </p>
+
+            <span>
+                {{ selectedEmployee?.isActive
+                ? 'The employee will be marked as inactive.'
+                : 'The employee will be marked as active.' }}
+            </span>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+
+            <button type="button" class="cancel-button" (click)="closeStatusPopup()">
+                Cancel
+            </button>
+
+            <button type="button" class="save-button" (click)="confirmStatusChange()">
+
+                {{ selectedEmployee?.isActive ? 'Deactivate' : 'Activate' }}
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
+
+}
