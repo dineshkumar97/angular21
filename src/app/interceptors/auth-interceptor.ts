@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    // this.loaderService.show();
+    this.loaderService.show();
 
     let authReq = req.clone({
       setHeaders: {

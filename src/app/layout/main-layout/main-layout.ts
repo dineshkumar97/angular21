@@ -1,10 +1,6 @@
 import { Component, computed, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet
-} from '@angular/router';
+import { Router,RouterLink,RouterOutlet } from '@angular/router';
+
 
 interface MenuItem {
   label: string;
@@ -22,7 +18,7 @@ interface Product {
 }
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
@@ -36,34 +32,7 @@ export class MainLayout implements OnInit {
   // userName = 'Dinesh';
   isDropdownOpen = signal(false);
 
-  // toggleDropdown(): void {
-  //   this.isDropdownOpen = !this.isDropdownOpen;
-  // }
-
-  // profile(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Navigate to profile
-  //   // this.router.navigate(['/profile']);
-  // }
-
-  // settings(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Navigate to settings
-  //   // this.router.navigate(['/settings']);
-  // }
-
-
-  // logout(): void {
-  //   this.isDropdownOpen = false;
-
-  //   // Clear local storage
-  //   sessionStorage.clear();
-  //   // Redirect to login page
-  //   this.router.navigate(['/login']);
-
-  // }
+  activeMenu = signal('Dashboard');
 
   userName = signal('Dinesh');
 
@@ -85,8 +54,9 @@ export class MainLayout implements OnInit {
     { label: 'Settings', icon: '⚙️', route: '/settings' }
   ]);
 
-  activeMenu = signal('Dashboard');
-
+ selectMenu(menu: any) {
+    this.activeMenu.set(menu.label);
+  }
   // ============================
   // DASHBOARD STATISTICS
   // ============================
@@ -127,9 +97,7 @@ export class MainLayout implements OnInit {
   // MENU
   // ============================
 
-  selectMenu(menu: MenuItem) {
-    this.activeMenu.set(menu.label);
-  }
+ 
 
   // ============================
   // PROFILE
