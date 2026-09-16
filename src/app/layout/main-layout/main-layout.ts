@@ -22,7 +22,7 @@ interface Product {
 }
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
@@ -65,7 +65,7 @@ export class MainLayout implements OnInit {
 
   // }
 
-   userName = signal('Dinesh');
+  userName = signal('Dinesh');
 
   // isDropdownOpen = signal(false);
 
@@ -91,7 +91,7 @@ export class MainLayout implements OnInit {
   // DASHBOARD STATISTICS
   // ============================
 
- 
+
 
   // ============================
   // REVENUE DATA
@@ -152,6 +152,9 @@ export class MainLayout implements OnInit {
   logout() {
     console.log('Logout clicked');
     this.isDropdownOpen.set(false);
+    sessionStorage.clear();
+    // Redirect to login page
+    this.router.navigate(['/login']);
   }
 
   // ============================
