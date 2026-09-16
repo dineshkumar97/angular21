@@ -77,24 +77,41 @@ export class Login implements OnInit {
   }
 
   public loginDetails(): void {
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
-    this.loginService.login(this.loginForm.value).subscribe(
-      (response) => {
-        this.toastService.success('Login successful');
+    this.loginService.login(this.loginForm.value).subscribe({
+
+      next: (response: any) => {
+
         console.log('Login successful:', response);
+        // Save JWT token
+        sessionStorage.setItem('authToken', response.token);
+
+        console.log(
+          'Auth Token:',
+          sessionStorage.getItem('authToken')
+        );
+
+        this.toastService.success('Login successful');
+
+        // Navigate after token is stored
         this.router.navigate(['/dashboard']);
       },
-      (error) => {
-        this.toastService.error(error.error.message || 'Login failed');
+
+      error: (error) => {
+
         console.error('Login failed:', error);
-        // Handle login error, e.g., show error message
+
+        this.toastService.error(
+          error?.error?.message || 'Login failed'
+        );
       }
-    );
-    console.log('Login successful');
+
+    });
   }
 
 }
