@@ -740,7 +740,8 @@ body {
   background: white;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
-  overflow: hidden
+  overflow: hidden;
+  margin-top: 10px
 }
 
 .attention-header {
@@ -1011,4 +1012,364 @@ tbody tr:hover {
   .page-heading h1 {
     font-size: 19px
   }
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+
+  padding: 20px;
+}
+
+.modal-container {
+  width: 600px;
+  max-width: 100%;
+
+  background: #ffffff;
+  border-radius: 14px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+
+  animation: popup 0.2s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 24px;
+  border-bottom: 1px solid #e5e7eb;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+  }
+}
+
+.close-button {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  font-size: 24px;
+  line-height: 1;
+
+  color: #6b7280;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0px 20px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  input,
+  select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 14px;
+    color: #111827;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+  }
+
+  input::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  padding: 16px 24px;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: #f9fafb;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 18px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.cancel-button {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+.save-button {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+
+  &:hover {
+    background: #1d4ed8;
+  }
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 18px;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.edit-button,
+.delete-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  transform: scale(1.1);
+}
+
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error {
+  display: block;
+  margin-top: 5px;
+  color: #dc3545;
+  font-size: 13px;
+  line-height: 0;
+}
+
+.form-group input.ng-invalid.ng-touched {
+  border: 1px solid #dc3545;
+}
+
+
+
+.form-group input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+}
+
+.status-modal {
+  max-width: 450px;
+}
+
+.confirmation-body {
+  text-align: center;
+  padding: 0px 25px 10px 25px;
+}
+
+.confirmation-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.confirmation-body p {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.confirmation-body span {
+  color: #777;
+  font-size: 14px;
+}
+
+// .status-button {
+//   border: none;
+//   background: transparent;
+//   padding: 4px;
+//   cursor: pointer;
+//   font-size: 18px;
+// }
+
+// .active-icon {
+//   color: #16a34a;
+// }
+
+// .inactive-icon {
+//   color: #dc2626;
+// }
+
+// .status-button:hover {
+//   transform: scale(1.15);
+// }
+
+.status-button {
+  border: none;
+  background: transparent;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.status-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-icon.active {
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+.status-icon.inactive {
+  background: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+}
+
+.status-button:hover .status-icon {
+  transform: scale(1.2);
+}
+.active-name {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.inactive-name {
+  color: #dc2626;
+  font-weight: 500;
 }

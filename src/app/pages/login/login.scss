@@ -33,34 +33,7 @@
   font-size: 14px;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
 
-.form-group label {
-  display: block;
-  margin-bottom: 7px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-.form-group input[type="email"],
-.form-group input[type="password"] {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 14px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  font-size: 14px;
-  outline: none;
-  transition: 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
-}
 
 .login-options {
   display: flex;
@@ -114,30 +87,6 @@
   }
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group input {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.error {
-  display: block;
-  margin-top: 5px;
-  color: #dc3545;
-  font-size: 13px;
-  line-height: 18px;
-}
-.form-group input.ng-invalid.ng-touched {
-  border: 1px solid #dc3545;
-}
-
-.form-group input.ng-valid.ng-touched {
-  border: 1px solid #28a745;
-}
 
 .password-rules {
   margin-top: 8px;

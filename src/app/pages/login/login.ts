@@ -19,7 +19,6 @@ import { ToastService } from '../../toast/toast-service';
 export class Login implements OnInit {
 
   loginForm!: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private router: Router,

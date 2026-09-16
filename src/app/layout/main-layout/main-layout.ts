@@ -1,6 +1,6 @@
 import { Component, computed, OnInit, signal } from '@angular/core';
-import { Router,RouterLink,RouterOutlet } from '@angular/router';
-
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 interface MenuItem {
   label: string;
@@ -26,7 +26,32 @@ export class MainLayout implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.router.url === '/employee') {
+      this.activeMenu.set('Employees');
+    } else if (this.router.url === '/departments') {
+      this.activeMenu.set('Departments');
+    } else if (this.router.url === '/dashboard') {
+      this.activeMenu.set('Dashboard');
+    }
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe(() => {
+        this.updateActiveMenu();
+      });
+  }
+
+  private updateActiveMenu(): void {
+    const menuMap: Record<string, string> = {
+      '/dashboard': 'Dashboard',
+      '/employee': 'Employees',
+      '/departments': 'Departments'
+    };
+
+    this.activeMenu.set(menuMap[this.router.url] ?? 'Dashboard');
+  }
 
 
   // userName = 'Dinesh';
@@ -54,7 +79,7 @@ export class MainLayout implements OnInit {
     { label: 'Settings', icon: '⚙️', route: '/settings' }
   ]);
 
- selectMenu(menu: any) {
+  selectMenu(menu: any) {
     this.activeMenu.set(menu.label);
   }
   // ============================
@@ -88,20 +113,6 @@ export class MainLayout implements OnInit {
     );
   });
 
-  // ============================
-  // INVENTORY DATA
-  // ============================
-
-
-  // ============================
-  // MENU
-  // ============================
-
- 
-
-  // ============================
-  // PROFILE
-  // ============================
 
   toggleDropdown() {
     this.isDropdownOpen.update(value => !value);
@@ -121,15 +132,8 @@ export class MainLayout implements OnInit {
     console.log('Logout clicked');
     this.isDropdownOpen.set(false);
     sessionStorage.clear();
-    // Redirect to login page
     this.router.navigate(['/login']);
   }
 
-  // ============================
-  // REORDER
-  // ============================
-
-  reorder(product: Product) {
-    console.log('Reorder:', product);
-  }
+ 
 }
