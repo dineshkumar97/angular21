@@ -33,7 +33,7 @@
                         employeeForm.get('name')?.invalid &&
                         employeeForm.get('name')?.touched
                         ) {
-                        <small class="error">
+                        <small class="form-error">
                             Employee name is required
                         </small>
                         }
@@ -51,7 +51,7 @@
                         employeeForm.get('email')?.invalid &&
                         employeeForm.get('email')?.touched
                         ) {
-                        <small class="error">
+                        <small class="form-error">
                             Enter a valid email address
                         </small>
                         }
@@ -70,7 +70,7 @@
                         employeeForm.get('phone')?.invalid &&
                         employeeForm.get('phone')?.touched
                         ) {
-                        <small class="error">
+                        <small class="form-error">
                             Enter a valid 10 digit phone number
                         </small>
                         }
@@ -88,10 +88,11 @@
                                 Select department
                             </option>
 
-                            <option value="IT">IT</option>
-                            <option value="HR">HR</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Sales">Sales</option>
+                            @for (department of departmentList; track department) {
+                            <option [value]="department.name">
+                                {{ department.name }}
+                            </option>
+                            }
 
                         </select>
 
@@ -99,7 +100,7 @@
                         employeeForm.get('department')?.invalid &&
                         employeeForm.get('department')?.touched
                         ) {
-                        <small class="error">
+                        <small class="form-error">
                             Please select department
                         </small>
                         }
@@ -116,7 +117,7 @@
                         employeeForm.get('dob')?.invalid &&
                         employeeForm.get('dob')?.touched
                         ) {
-                        <small class="error">
+                        <small class="form-error">
                             Select Date of birth
                         </small>
                         }

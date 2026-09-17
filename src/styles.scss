@@ -21,7 +21,8 @@
 }
 
 .custom-toast.error {
-  background: #dc3545
+  background: #dc3545;
+  color:#fff;
 }
 
 .custom-toast.warning {
@@ -1274,7 +1275,7 @@ tbody tr:hover {
   box-sizing: border-box;
 }
 
-.error {
+.form-error{
   display: block;
   margin-top: 5px;
   color: #dc3545;
@@ -1302,6 +1303,10 @@ tbody tr:hover {
   padding: 0px 25px 10px 25px;
 }
 
+.delete-body {
+  text-align: center;
+}
+
 .confirmation-icon {
   font-size: 40px;
   margin-bottom: 15px;
@@ -1311,6 +1316,11 @@ tbody tr:hover {
   margin: 0 0 8px;
   font-size: 16px;
 }
+.delete-body p {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
 
 .confirmation-body span {
   color: #777;

@@ -38,6 +38,12 @@ export const routes: Routes = [
           import('./pages/employee/employee')
             .then(m => m.Employee)
       },
+       {
+        path: 'departments',
+        loadComponent: () =>
+          import('./pages/department/department')
+            .then(m => m.Department)
+      },
       {
         path: 'reports',
         loadComponent: () =>

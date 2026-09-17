@@ -15,7 +15,6 @@ import {
   Validators
 } from '@angular/forms';
 import { EmployeeService } from '../employee-service';
-
 import { ToastService } from '../../../toast/toast-service';
 
 @Component({
@@ -34,6 +33,7 @@ export class EmployeeCreateUpdate implements OnInit {
   @Output() save = new EventEmitter<any>();
   @Output() employeeTable = new EventEmitter<void>();
   private fb = inject(FormBuilder);
+  departmentList!: any;
 
 
 
@@ -58,6 +58,7 @@ export class EmployeeCreateUpdate implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployeeForm();
+    this.getDepartmentList();
   }
 
   loadEmployeeForm(): void {
@@ -127,5 +128,18 @@ export class EmployeeCreateUpdate implements OnInit {
         });
     }
 
+  }
+
+  getDepartmentList(): void {
+    this.employeeService.getDepartment().subscribe({
+      next: (response: any) => {
+        this.departmentList = response;
+      },
+      error: (error) => {
+        this.toastService.error(
+          error?.error?.message || 'Employee failed'
+        );
+      }
+    });
   }
 }
