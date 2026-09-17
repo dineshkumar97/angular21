@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { DepartmentList } from '../department/department-service';
 
 export interface EmployeeList {
   data(data: any): unknown;
@@ -59,5 +60,10 @@ export class EmployeeService {
     );
   }
 
+
+    getDepartment(): Observable<DepartmentList[]> {
+      return this.http.get<DepartmentList[]>(`${this.apiUrl}/department/all`);
+    }
+  
 
 }

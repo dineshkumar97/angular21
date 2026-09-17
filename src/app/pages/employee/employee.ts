@@ -68,10 +68,7 @@ export class Employee implements OnInit {
     this.selectedEmployee = null;
   }
 
-  deleteEmployee(employeeId: string): void {
-    console.log('Delete Employee button clicked for ID:', employeeId);
-    // Implement the logic to delete the employee here
-  }
+
 
   employeeSaved(): void {
     this.getEmployees();

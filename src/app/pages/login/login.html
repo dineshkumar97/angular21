@@ -24,7 +24,7 @@
         loginForm.get('email')?.touched &&
         loginForm.get('email')?.hasError('required')
         ) {
-        <small class="error">
+        <small class="form-error">
           Email is required
         </small>
         }
@@ -34,7 +34,7 @@
         loginForm.get('email')?.touched &&
         loginForm.get('email')?.hasError('email')
         ) {
-        <small class="error">
+        <small class="form-error">
           Please enter a valid email address
         </small>
         }
@@ -57,7 +57,7 @@
         loginForm.get('password')?.touched &&
         loginForm.get('password')?.hasError('required')
         ) {
-        <small class="error">
+        <small class="form-error">
           Password is required
         </small>
         }
@@ -67,7 +67,7 @@
         loginForm.get('password')?.touched &&
         loginForm.get('password')?.hasError('minlength')
         ) {
-        <small class="error">
+        <small class="form-error">
           Password must be at least 6 characters
         </small>
         }
