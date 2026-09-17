@@ -44,4 +44,20 @@ export class EmployeeService {
   }
 
 
+  exportEmployeesExcel(body: any) {
+    return this.http.post(`${this.apiUrl}/employee/export/excel`, body,
+      {
+        responseType: 'blob'
+      }
+    );
+  }
+  exportEmployeesPDF(body: any) {
+    return this.http.post(`${this.apiUrl}/employee/export/pdf`,body,
+      {
+        responseType: 'blob'
+      }
+    );
+  }
+
+
 }

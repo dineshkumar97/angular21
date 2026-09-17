@@ -1468,3 +1468,26 @@ tbody tr:hover {
 .visibility-hidden{
   visibility: hidden;
 }
+
+.export-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 22px;
+    transition: transform 0.2s ease;
+}
+
+.export-icon:hover {
+    transform: scale(1.15);
+}
+
+.excel-icon {
+    color: #16803c;
+}
+
+.pdf-icon {
+    color: #d93025;
+}

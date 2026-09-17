@@ -147,4 +147,86 @@ export class Employee implements OnInit {
     this.getEmployees();
   }
 
+  exportExcel() {
+
+    const body = {
+        name: this.searchName,
+        email: this.searchEmail,
+        department: this.searchDepartment,
+        isActive: this.searchStatus === ''
+            ? null
+            : this.searchStatus === 'true'
+    };
+
+    this.employeeService
+        .exportEmployeesExcel(body)
+        .subscribe({
+            next: (response) => {
+
+                const blob = new Blob(
+                    [response],
+                    {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    }
+                );
+
+                const url = window.URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+
+                link.href = url;
+                link.download = 'Employee_List.xlsx';
+
+                link.click();
+
+                window.URL.revokeObjectURL(url);
+            },
+
+            error: (error) => {
+                console.error(error);
+            }
+        });
+}
+
+exportPDF() {
+
+    const body = {
+        name: this.searchName,
+        email: this.searchEmail,
+        department: this.searchDepartment,
+        isActive: this.searchStatus === ''
+            ? null
+            : this.searchStatus === 'true'
+    };
+
+    this.employeeService
+        .exportEmployeesPDF(body)
+        .subscribe({
+            next: (response) => {
+
+                const blob = new Blob(
+                    [response],
+                    {
+                        type: 'application/pdf'
+                    }
+                );
+
+                const url = window.URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+
+                link.href = url;
+                link.download = 'Employee_List.pdf';
+
+                link.click();
+
+                window.URL.revokeObjectURL(url);
+            },
+
+            error: (error) => {
+                console.error(error);
+            }
+        });
+}
+
 }
