@@ -885,8 +885,8 @@ tbody tr:hover {
   background: #ff5a1f;
   color: white;
   border-radius: 7px;
-  padding: 6px 12px;
-  font-size: 9px;
+  padding: 10px 12px;
+  font-size: 12px;
   cursor: pointer;
   transition: 0.2s
 }
@@ -1372,4 +1372,99 @@ tbody tr:hover {
 .inactive-name {
   color: #dc2626;
   font-weight: 500;
+}
+
+
+.search-form {
+  margin-top: 15px;
+    padding: 18px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.search-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+.form-grid-search {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0px 20px;
+    width: 100%;
+}
+.form-group-search {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group-search label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group-search input,
+.form-group-search select {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #fff;
+    color: #374151;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group-search input:focus,
+.form-group-search select:focus {
+    border-color: #6366f1;
+}
+
+.search-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.search-button,
+.clear-button {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.search-button {
+    border: none;
+    background: #4f46e5;
+    color: #fff;
+}
+
+.search-button:hover {
+    background: #4338ca;
+}
+
+.clear-button {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #374151;
+}
+
+.clear-button:hover {
+    background: #f9fafb;
+}
+
+.visibility-hidden{
+  visibility: hidden;
 }
