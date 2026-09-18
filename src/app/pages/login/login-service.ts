@@ -37,29 +37,33 @@ export class LoginService {
     );
   }
 
-   public forgotPassword(data: any): Observable<LoginResponse> {
+  public forgotPassword(data: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/user/forgot-password`,
       data
     );
   }
 
-   public resetPassword(data: any): Observable<LoginResponse> {
+  public resetPassword(data: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/user/reset-password`,
       data
     );
   }
- public signUpUser(data: any): Observable<LoginResponse> {
+  public signUpUser(data: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/user/create`,
       data
     );
   }
 
- 
-   public updateEmployee(idUser: string, data: UserDetails): Observable<LoginResponse> {
-      return this.http.put<LoginResponse>(`${this.apiUrl}/user/update/${idUser}`, data);
-    }
 
+  public updateEmployee(idUser: string, data: FormData): Observable<LoginResponse> {
+    return this.http.put<LoginResponse>(`${this.apiUrl}/user/update/${idUser}`, data);
+  }
+
+  public getProfile(id: string) {
+    return this.http.get(`${this.apiUrl}/user/profile/${id}`);
+  }
+  
 }
