@@ -113,6 +113,13 @@ export class Login implements OnInit {
     });
   }
 
+  goToForgotPassword() {
+    this.router.navigate(['/forgot-password']);
+  }
+
+  goToSignUp() {
+    this.router.navigate(['/signup']);
+  }
 }
 
 

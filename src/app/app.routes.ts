@@ -12,7 +12,24 @@ export const routes: Routes = [
       import('./pages/login/login')
         .then(m => m.Login)
   },
-
+  {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password')
+        .then(m => m.ForgotPassword)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/reset-page/reset-page')
+        .then(m => m.ResetPage)
+  },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('./pages/singup/singup')
+        .then(m => m.Singup)
+  },
   {
     path: '',
     loadComponent: () =>
@@ -38,28 +55,16 @@ export const routes: Routes = [
           import('./pages/employee/employee')
             .then(m => m.Employee)
       },
-       {
+      {
         path: 'departments',
         loadComponent: () =>
           import('./pages/department/department')
             .then(m => m.Department)
       },
-      {
-        path: 'reports',
-        loadComponent: () =>
-          import('./pages/reports/reports')
-            .then(m => m.Reports)
-      },
-      {
-        path: 'settings',
-        loadComponent: () =>
-          import('./pages/settings/settings')
-            .then(m => m.Settings)
-      },
 
-     
     ]
   },
+
 
   {
     path: '**',
