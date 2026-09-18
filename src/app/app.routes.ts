@@ -62,6 +62,13 @@ export const routes: Routes = [
             .then(m => m.Department)
       },
 
+        {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/profile/profile')
+            .then(m => m.Profile)
+      },
+
     ]
   },
 

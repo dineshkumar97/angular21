@@ -87,17 +87,9 @@ export class Login implements OnInit {
       next: (response: any) => {
 
         console.log('Login successful:', response);
-        // Save JWT token
         sessionStorage.setItem('authToken', response.token);
-
-        console.log(
-          'Auth Token:',
-          sessionStorage.getItem('authToken')
-        );
-
+        sessionStorage.setItem('user_details',JSON.stringify(response.data));
         this.toastService.success('Login successful');
-
-        // Navigate after token is stored
         this.router.navigate(['/dashboard']);
       },
 

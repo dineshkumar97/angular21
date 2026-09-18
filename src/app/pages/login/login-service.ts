@@ -8,6 +8,12 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+export interface UserDetails {
+  email: string;
+  name: string;
+  phone: string;
+}
+
 
 export interface LoginResponse {
   message: string;
@@ -50,5 +56,10 @@ export class LoginService {
       data
     );
   }
+
+ 
+   public updateEmployee(idUser: string, data: UserDetails): Observable<LoginResponse> {
+      return this.http.put<LoginResponse>(`${this.apiUrl}/user/update/${idUser}`, data);
+    }
 
 }

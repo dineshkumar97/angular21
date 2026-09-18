@@ -120,6 +120,7 @@ export class MainLayout implements OnInit {
 
   profile() {
     console.log('Profile clicked');
+    this.router.navigate(['/profile'])
     this.isDropdownOpen.set(false);
   }
 
