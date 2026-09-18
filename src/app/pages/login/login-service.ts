@@ -31,6 +31,24 @@ export class LoginService {
     );
   }
 
+   public forgotPassword(data: any): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.apiUrl}/user/forgot-password`,
+      data
+    );
+  }
 
+   public resetPassword(data: any): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.apiUrl}/user/reset-password`,
+      data
+    );
+  }
+ public signUpUser(data: any): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.apiUrl}/user/create`,
+      data
+    );
+  }
 
 }
