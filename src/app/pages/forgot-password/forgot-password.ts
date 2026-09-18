@@ -43,6 +43,7 @@ export class ForgotPassword implements OnInit {
     this.loginService.forgotPassword(this.forgotForm.value).subscribe({
       next: (response: any) => {
         this.toastService.success(response.message);
+        window.location.href = 'https://mail.google.com/mail/u/0/#inbox';
       },
       error: (error) => {
         this.toastService.error(error?.error?.message);

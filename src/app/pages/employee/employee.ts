@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonDatePipe } from '../../common/common-date.pipe';
 import { EmployeeList, EmployeeService } from './employee-service';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
-  imports: [CommonDatePipe, EmployeeCreateUpdate,FormsModule],
+  imports: [CommonDatePipe, EmployeeCreateUpdate, FormsModule],
   templateUrl: './employee.html',
   styleUrl: './employee.scss',
 })
@@ -147,83 +147,134 @@ export class Employee implements OnInit {
   exportExcel() {
 
     const body = {
-        name: this.searchName,
-        email: this.searchEmail,
-        department: this.searchDepartment,
-        isActive: this.searchStatus === ''
-            ? null
-            : this.searchStatus === 'true'
+      name: this.searchName,
+      email: this.searchEmail,
+      department: this.searchDepartment,
+      isActive: this.searchStatus === ''
+        ? null
+        : this.searchStatus === 'true'
     };
 
     this.employeeService
-        .exportEmployeesExcel(body)
-        .subscribe({
-            next: (response) => {
+      .exportEmployeesExcel(body)
+      .subscribe({
+        next: (response) => {
 
-                const blob = new Blob(
-                    [response],
-                    {
-                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    }
-                );
-
-                const url = window.URL.createObjectURL(blob);
-
-                const link = document.createElement('a');
-
-                link.href = url;
-                link.download = 'Employee_List.xlsx';
-
-                link.click();
-
-                window.URL.revokeObjectURL(url);
-            },
-
-            error: (error) => {
-                console.error(error);
+          const blob = new Blob(
+            [response],
+            {
+              type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             }
-        });
-}
+          );
 
-exportPDF() {
+          const url = window.URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+
+          link.href = url;
+          link.download = 'Employee_List.xlsx';
+
+          link.click();
+
+          window.URL.revokeObjectURL(url);
+        },
+
+        error: (error) => {
+          console.error(error);
+        }
+      });
+  }
+
+  exportPDF() {
 
     const body = {
-        name: this.searchName,
-        email: this.searchEmail,
-        department: this.searchDepartment,
-        isActive: this.searchStatus === ''
-            ? null
-            : this.searchStatus === 'true'
+      name: this.searchName,
+      email: this.searchEmail,
+      department: this.searchDepartment,
+      isActive: this.searchStatus === ''
+        ? null
+        : this.searchStatus === 'true'
     };
 
     this.employeeService
-        .exportEmployeesPDF(body)
-        .subscribe({
-            next: (response) => {
+      .exportEmployeesPDF(body)
+      .subscribe({
+        next: (response) => {
 
-                const blob = new Blob(
-                    [response],
-                    {
-                        type: 'application/pdf'
-                    }
-                );
-
-                const url = window.URL.createObjectURL(blob);
-
-                const link = document.createElement('a');
-
-                link.href = url;
-                link.download = 'Employee_List.pdf';
-
-                link.click();
-
-                window.URL.revokeObjectURL(url);
-            },
-
-            error: (error) => {
-                console.error(error);
+          const blob = new Blob(
+            [response],
+            {
+              type: 'application/pdf'
             }
-        });
-}
+          );
+
+          const url = window.URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+
+          link.href = url;
+          link.download = 'Employee_List.pdf';
+
+          link.click();
+
+          window.URL.revokeObjectURL(url);
+        },
+
+        error: (error) => {
+          console.error(error);
+        }
+      });
+  }
+
+  currentPage = signal(1);
+  pageSize = signal(10);
+
+  // Total pages
+  totalPages = computed(() =>
+    Math.ceil(this.employees().length / this.pageSize())
+  );
+
+  // Employees displayed on current page
+  paginatedEmployees = computed(() => {
+
+    const start = (this.currentPage() - 1) * this.pageSize();
+    const end = start + this.pageSize();
+
+    return this.employees().slice(start, end);
+  });
+
+  // Change page
+  goToPage(page: number) {
+
+    if (page < 1 || page > this.totalPages()) {
+      return;
+    }
+
+    this.currentPage.set(page);
+  }
+
+  // Previous
+  previousPage() {
+
+    if (this.currentPage() > 1) {
+      this.currentPage.update(page => page - 1);
+    }
+  }
+
+  // Next
+  nextPage() {
+
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.update(page => page + 1);
+    }
+  }
+
+  // Page numbers
+  pages = computed(() =>
+    Array.from(
+      { length: this.totalPages() },
+      (_, i) => i + 1
+    )
+  );
 
 }

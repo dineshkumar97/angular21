@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private loaderService: LoaderService
-  ) {}
+  ) { }
 
   intercept(
     req: HttpRequest<any>,
@@ -44,30 +44,44 @@ export class AuthInterceptor implements HttpInterceptor {
 
     this.loaderService.show();
 
-    let authReq = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json'
-      }
-    });
+    let authReq = req;
 
-    // Only access sessionStorage in browser
     if (isPlatformBrowser(this.platformId)) {
 
       const jwt = window.sessionStorage.getItem('authToken');
 
       console.log('JWT:', jwt);
 
-      if (jwt) {
+      // Check if request is FormData
+      if (req.body instanceof FormData) {
 
-        authReq = authReq.clone({
+        // DON'T set Content-Type
+        authReq = req.clone({
           setHeaders: {
-            Authorization: `Bearer ${jwt}`
+            ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
           }
         });
 
-      }
-    }
+      } else {
 
+        // Normal JSON request
+        authReq = req.clone({
+          setHeaders: {
+            'Content-Type': 'application/json',
+            ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
+          }
+        });
+      }
+
+    } else {
+
+      // SSR
+      authReq = req.clone({
+        setHeaders: {
+          'Content-Type': 'application/json'
+        }
+      });
+    }
     return next.handle(authReq).pipe(
 
       catchError((error: HttpErrorResponse) => {
