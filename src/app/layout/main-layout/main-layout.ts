@@ -24,8 +24,22 @@ interface Product {
   styleUrl: './main-layout.scss',
 })
 export class MainLayout implements OnInit {
+  isDropdownOpen = signal(false);
 
-  constructor(private router: Router) { }
+  activeMenu = signal('Dashboard');
+
+  userName = signal('');
+  profileImage = '';
+
+  constructor(private router: Router, private loginService: LoginService) {
+    effect(() => {
+      const user = this.loginService.userDetails();
+      this.userName.set(user?.name || '');
+      this.profileImage = user?.profileImage || '';
+    });
+
+
+  }
 
   ngOnInit(): void {
     if (this.router.url === '/employee') {
@@ -42,11 +56,6 @@ export class MainLayout implements OnInit {
       .subscribe(() => {
         this.updateActiveMenu();
       });
-      const user = JSON.parse(
-      sessionStorage.getItem('user_details') || '{}'
-    );
-    this.userName.set(user.name);
-    this.profileImage = user.profileImage || '';
   }
 
   private updateActiveMenu(): void {
@@ -61,12 +70,6 @@ export class MainLayout implements OnInit {
 
 
   // userName = 'Dinesh';
-  isDropdownOpen = signal(false);
-
-  activeMenu = signal('Dashboard');
-
-  userName = signal('');
-  profileImage = '';
 
   // isDropdownOpen = signal(false);
 
@@ -126,18 +129,15 @@ export class MainLayout implements OnInit {
   }
 
   profile() {
-    console.log('Profile clicked');
     this.router.navigate(['/profile'])
     this.isDropdownOpen.set(false);
   }
 
   settings() {
-    console.log('Settings clicked');
     this.isDropdownOpen.set(false);
   }
 
   logout() {
-    console.log('Logout clicked');
     this.isDropdownOpen.set(false);
     sessionStorage.clear();
     this.router.navigate(['/login']);

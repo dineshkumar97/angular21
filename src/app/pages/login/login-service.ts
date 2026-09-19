@@ -25,7 +25,7 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class LoginService {
-
+  private platformId = inject(PLATFORM_ID);
   //  private apiUrl = 'http://localhost:3000/api-learn/user';
   //  private apiUrl = 'https://1gipascky0.execute-api.ap-south-1.amazonaws.com/api-learn/user';
   private apiUrl = environment.apiUrl;
@@ -67,5 +67,26 @@ export class LoginService {
   public getProfile(id: string) {
     return this.http.get(`${this.apiUrl}/user/profile/${id}`);
   }
-  
+
+
+  userDetails = signal<any>(this.getUserFromStorage());
+
+  private getUserFromStorage(): any {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+    const user = sessionStorage.getItem('user_details');
+    return user ? JSON.parse(user) : null;
+  }
+
+  setUser(user: any): void {
+    this.userDetails.set(user);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem(
+        'user_details',
+        JSON.stringify(user)
+      );
+    }
+  }
+
 }
