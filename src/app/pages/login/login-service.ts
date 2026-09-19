@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 
 export interface LoginRequest {
@@ -11,7 +12,8 @@ export interface LoginRequest {
 export interface UserDetails {
   email: string;
   name: string;
-  phone: string;
+  phone?: string;
+  profileImage?: string;
 }
 
 

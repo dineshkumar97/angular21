@@ -1,6 +1,7 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
+import { LoginService } from '../../pages/login/login-service';
 
 interface MenuItem {
   label: string;
@@ -41,6 +42,11 @@ export class MainLayout implements OnInit {
       .subscribe(() => {
         this.updateActiveMenu();
       });
+      const user = JSON.parse(
+      sessionStorage.getItem('user_details') || '{}'
+    );
+    this.userName.set(user.name);
+    this.profileImage = user.profileImage || '';
   }
 
   private updateActiveMenu(): void {
@@ -59,7 +65,8 @@ export class MainLayout implements OnInit {
 
   activeMenu = signal('Dashboard');
 
-  userName = signal('Dinesh');
+  userName = signal('');
+  profileImage = '';
 
   // isDropdownOpen = signal(false);
 
@@ -136,5 +143,5 @@ export class MainLayout implements OnInit {
     this.router.navigate(['/login']);
   }
 
- 
+
 }

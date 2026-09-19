@@ -5,15 +5,11 @@
   ======================================= -->
 
   <aside class="sidebar">
-
     <!-- Logo -->
-
     <div class="logo">
-
       <div class="logo-icon">
         E
       </div>
-
       <span class="logo-text">
         Employee Management
       </span>
@@ -25,27 +21,24 @@
 
     <nav class="sidebar-nav">
 
-  @for (menu of menuItems(); track menu.label) {
+      @for (menu of menuItems(); track menu.label) {
 
-    <a
-      class="menu-item"
-      [class.active]="activeMenu() === menu.label"
-      [routerLink]="menu.route" 
-      (click)="selectMenu(menu)">
+      <a class="menu-item" [class.active]="activeMenu() === menu.label" [routerLink]="menu.route"
+        (click)="selectMenu(menu)">
 
-      <span class="menu-icon">
-        {{ menu.icon }}
-      </span>
+        <span class="menu-icon">
+          {{ menu.icon }}
+        </span>
 
-      <span class="menu-label">
-        {{ menu.label }}
-      </span>
+        <span class="menu-label">
+          {{ menu.label }}
+        </span>
 
-    </a>
+      </a>
 
-  }
+      }
 
-</nav>
+    </nav>
 
 
     <!-- Sidebar Bottom -->
@@ -97,10 +90,7 @@
           ⌕
         </span>
 
-        <input
-          type="text"
-          placeholder="Search products, orders, SKUs..."
-        />
+        <input type="text" placeholder="Search products, orders, SKUs..." />
 
       </div>
 
@@ -108,90 +98,41 @@
       <!-- Header Right -->
 
       <div class="header-right">
-
-
-        <!-- Store -->
-
-        <button class="store-button">
-
-          <span>
-            Downtown Store
+          <span class="profile-name">
+            {{ userName() }}
           </span>
-
-          <span>
-           ⌄
-          </span>
-
-        </button>
-
-
-        <!-- Notification -->
-
-        <button class="notification-button">
-
-          🔔
-
-          <span class="notification-dot"></span>
-
-        </button>
-
-
-        <!-- Profile -->
-
         <div class="profile-container">
-
-          <button
-            class="profile-button"
-            (click)="toggleDropdown()">
-
+          <button class="profile-button" (click)="toggleDropdown()">
+            @if (profileImage) {
+            <img [src]="profileImage" class="profile-image" alt="Profile" />
+            } @else {
             <div class="profile-avatar">
-
               {{ userName().charAt(0).toUpperCase() }}
-
             </div>
-
+            }
             <span class="profile-arrow">
               ▼
             </span>
-
           </button>
-
-
-          <!-- Profile Dropdown -->
-
           @if (isDropdownOpen()) {
-
-            <div class="dropdown-menu">
-
-              <button (click)="profile()">
-                <span>👤</span>
-                Profile
-              </button>
-
-              <button (click)="settings()">
-                <span>⚙</span>
-                Settings
-              </button>
-
-              <div class="dropdown-divider"></div>
-
-              <button
-                class="logout"
-                (click)="logout()">
-
-                <span>↪</span>
-                Logout
-
-              </button>
-
-            </div>
-
+          <div class="dropdown-menu">
+            <button (click)="profile()">
+              <span>👤</span>
+              Profile
+            </button>
+            <button (click)="settings()">
+              <span>⚙</span>
+              Settings
+            </button>
+            <div class="dropdown-divider"></div>
+            <button class="logout" (click)="logout()">
+              <span>↪</span>
+              Logout
+            </button>
+          </div>
           }
-
         </div>
-
       </div>
-
     </header>
 
 
@@ -201,7 +142,7 @@
 
     <section class="content">
       <router-outlet />
-      
+
     </section>
 
   </main>

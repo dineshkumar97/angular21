@@ -1564,3 +1564,17 @@ tbody tr:hover {
     font-size: 19px;
   }
 }
+
+.profile-avatar,
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.profile-name{
+      font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+}
