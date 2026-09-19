@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 
 export interface LoginRequest {
@@ -11,7 +12,8 @@ export interface LoginRequest {
 export interface UserDetails {
   email: string;
   name: string;
-  phone: string;
+  phone?: string;
+  profileImage?: string;
 }
 
 
@@ -23,7 +25,7 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class LoginService {
-
+  private platformId = inject(PLATFORM_ID);
   //  private apiUrl = 'http://localhost:3000/api-learn/user';
   //  private apiUrl = 'https://1gipascky0.execute-api.ap-south-1.amazonaws.com/api-learn/user';
   private apiUrl = environment.apiUrl;
@@ -65,5 +67,26 @@ export class LoginService {
   public getProfile(id: string) {
     return this.http.get(`${this.apiUrl}/user/profile/${id}`);
   }
-  
+
+
+  userDetails = signal<any>(this.getUserFromStorage());
+
+  private getUserFromStorage(): any {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+    const user = sessionStorage.getItem('user_details');
+    return user ? JSON.parse(user) : null;
+  }
+
+  setUser(user: any): void {
+    this.userDetails.set(user);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem(
+        'user_details',
+        JSON.stringify(user)
+      );
+    }
+  }
+
 }

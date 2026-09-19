@@ -51,7 +51,6 @@ export class Profile implements OnInit {
     this.userId = user._id;
 
     // Patch user data into form
-    console.log(user)
     this.profileForm.patchValue({
       name: user.name || '',
       email: user.email || '',
@@ -88,8 +87,8 @@ export class Profile implements OnInit {
       .subscribe({
         next: (response: any) => {
           this.toastService.success(response.message);
-          sessionStorage.setItem('user_details',JSON.stringify(response.data));
-           this.isEditMode = false;
+          this.isEditMode = false;
+          this.getProfile();
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
@@ -121,28 +120,19 @@ export class Profile implements OnInit {
   }
 
   getProfile(): void {
-
     this.loginService.getProfile(this.userId).subscribe({
       next: (response: any) => {
-
         const user = response.data;
-
         this.profileForm.patchValue({
           name: user.name || '',
           email: user.email || '',
           phone: user.phone || ''
         });
-
         if (user.profileImage) {
           this.profileImage = user.profileImage;
-          console.log(this.profileImage)
-        }
+          this.loginService.setUser(response.data);
 
-        // Keep latest user data
-        sessionStorage.setItem(
-          'user_details',
-          JSON.stringify(user)
-        );
+        }
       },
 
       error: (error) => {
